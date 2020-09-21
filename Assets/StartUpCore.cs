@@ -1,39 +1,61 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
-//using System.Text;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StartUpCore : MonoBehaviour
 {
-    public FileControllor Controller;
-    public Text NameShower, PathShower;
-    public string[] name;
-    private string namefilepath;
+    public FileControllor Controller;//文件信息库
+    public Text NameShower, PathShower, ButtonTxt;//姓名显示、路径显示、按钮文本
+    public string[] name;//姓名数组
+    private bool[] used;//去重数组
+    private string namefilepath;//文件路径
+    private int usednames, length;//已抽选次数、姓名数
+    
+    void Start()
+    {
+        ButtonTxt.text = "等待读取";
+    }
 
     public void ReadName()
     {
-        namefilepath = Controller.filepath;
-        name = File.ReadAllLines(namefilepath);
-        PathShower.text = namefilepath;
+        namefilepath = Controller.filepath;//设置相关文件参数
+        name = File.ReadAllLines(namefilepath);//读取txt文件
+        PathShower.text = namefilepath;//显示文件路径
+        length = name.Length;//读取姓名个数
+        for (int i = 0; i < length; i++)
+        {
+            used = false;//初始化去重数组
+        }
+        ButtonTxt.text = "抽选";
+    }
+    
+    void GenerateName()
+    {
+        int id = Random.Range(0, length);//生成随机id
+        while (used[id] == false))
+        {
+            id = Random.Range(0, length);//若重复了就重新生成随机id，直到未重复
+        }
+        NameShower.text = name[id];//显示抽选的姓名
+        usednames++;//抽选次数加一
+        used[id] = true;//添加重复标记
+        if (usednames >= length) ButtonTxt.text = "重置";
     }
 
-    public void GenerateName()
+    void Reset()
     {
-        int length = name.Length;
-        int id = Random.Range(0, length);
-        NameShower.text = name[id];
+        for (int i = 0; i < length; i++)
+        {
+            used = false;//重置去重数组
+        }
+        ButtonTxt.text = "抽选";
     }
 
-    void Start()
+    public void Click()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (usednames >= length) Reset();//若所有人都抽过了就重置去重数组
+        else GenerateName();//否则进行抽选
     }
 }
