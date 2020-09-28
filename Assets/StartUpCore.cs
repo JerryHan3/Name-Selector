@@ -16,6 +16,7 @@ public class StartUpCore : MonoBehaviour
     void Start()
     {
         ButtonTxt.text = "等待读取";
+        usednames = 0;
     }
 
     public void ReadName()
@@ -24,9 +25,10 @@ public class StartUpCore : MonoBehaviour
         name = File.ReadAllLines(namefilepath);//读取txt文件
         PathShower.text = namefilepath;//显示文件路径
         length = name.Length;//读取姓名个数
+        used = new bool[length];
         for (int i = 0; i < length; i++)
         {
-            used = false;//初始化去重数组
+            used[i] = false;//初始化去重数组
         }
         ButtonTxt.text = "抽选";
     }
@@ -34,7 +36,7 @@ public class StartUpCore : MonoBehaviour
     void GenerateName()
     {
         int id = Random.Range(0, length);//生成随机id
-        while (used[id] == false))
+        while (used[id] == true)
         {
             id = Random.Range(0, length);//若重复了就重新生成随机id，直到未重复
         }
@@ -48,9 +50,11 @@ public class StartUpCore : MonoBehaviour
     {
         for (int i = 0; i < length; i++)
         {
-            used = false;//重置去重数组
+            used[i] = false;//重置去重数组
         }
         ButtonTxt.text = "抽选";
+        NameShower.text = "已重置";
+        usednames = 0;
     }
 
     public void Click()
