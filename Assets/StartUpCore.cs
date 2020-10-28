@@ -8,14 +8,17 @@ public class StartUpCore : MonoBehaviour
 {
     public FileControllor Controller;//文件信息库
     public Text NameShower, PathShower, ButtonTxt;//姓名显示、路径显示、按钮文本
+    public Button MainButton;
     public string[] name;//姓名数组
     private bool[] used;//去重数组
     private string namefilepath;//文件路径
     private int usednames, length;//已抽选次数、姓名数
+    private bool fileloaded = false;
     
     void Start()
     {
         ButtonTxt.text = "等待读取";
+        MainButton.enabled = false;
         usednames = 0;
     }
 
@@ -31,6 +34,8 @@ public class StartUpCore : MonoBehaviour
             used[i] = false;//初始化去重数组
         }
         ButtonTxt.text = "抽选";
+        MainButton.enabled = true;
+        fileloaded = true;
     }
     
     void GenerateName()
@@ -46,14 +51,14 @@ public class StartUpCore : MonoBehaviour
         if (usednames >= length) ButtonTxt.text = "重置";
     }
 
-    void Reset()
+    public void Reset()
     {
         for (int i = 0; i < length; i++)
         {
             used[i] = false;//重置去重数组
         }
-        ButtonTxt.text = "抽选";
-        NameShower.text = "已重置";
+        if (fileloaded) ButtonTxt.text = "抽选";
+        if (fileloaded) NameShower.text = "已重置";
         usednames = 0;
     }
 

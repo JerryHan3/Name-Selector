@@ -419,7 +419,7 @@ ScriptsOnlyBuild:
     className: FlowMacro
   - hash:
       serializedVersion: 2
-      Hash: a1836d8571863a374565b302d03673f1
+      Hash: 9587bfa3ba168eeeb619703a2b74c88a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartUpCore
@@ -762,5 +762,5 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/Selector.unity
-  playerPath: "D:/\u97E9\u627F\u660A/\u9879\u76EE/\u6447\u53F7\u5668/\u6447\u53F7\u5668v0.0.1nr1/Name
+  playerPath: "D:/\u97E9\u627F\u660A/\u9879\u76EE/\u6447\u53F7\u5668/\u6447\u53F7\u5668v0.0.1nr2/Name
     Selector.exe"
